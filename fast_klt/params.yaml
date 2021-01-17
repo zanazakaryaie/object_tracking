@@ -1,0 +1,15 @@
+%YAML:1.0
+
+##########################
+### Tracker Parameters ###
+##########################
+
+maxFeatures: 100
+fastThreshold: 5
+nRows: 4
+nCols: 5
+kltWindowSize: 11
+shrinkRatio: 0.1
+ransacThreshold: 0.9
+
+
