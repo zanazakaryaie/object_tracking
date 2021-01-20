@@ -17,7 +17,7 @@ make
 ```
 Run the generated executable and enjoy! It detects face in the video using a pre-trained SSD model and then tries to track it in the subsequent frames. 
 
-![](https://j.gifs.com/mO1JX3.gif)
+![](https://j.gifs.com/WLx4KE.gif)
 
 # Note
 If you don't have Dlib on your computer, install it via:
