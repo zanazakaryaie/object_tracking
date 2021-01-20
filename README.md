@@ -17,7 +17,7 @@ make
 ```
 Run the generated executable and enjoy! It detects face in the video using a pre-trained SSD model and then tries to track it in the subsequent frames. 
 
-![Demo KCF alpha](https://gifs.com/gif/captain-s-haddock-face-tracked-by-kcf-tracker-Jy45lv)
+[![Demo KCF alpha](https://j.gifs.com/Jy45lv.gif)]
 
 # Note
 If you don't have Dlib on your computer, install it via:
