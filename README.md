@@ -17,7 +17,7 @@ make
 ```
 Run the generated executable and enjoy! It detects face in the video using a pre-trained SSD model and then tries to track it in the subsequent frames. 
 
-![Demo ARM-VO alpha](https://j.gifs.com/Jy45lv.gif)
+![Demo object_tracking alpha](https://j.gifs.com/Jy45lv.gif)
 
 # Note
 If you don't have Dlib on your computer, install it via:
