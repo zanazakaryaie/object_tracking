@@ -1,6 +1,13 @@
 # object_tracking
-Three object trackers you deserve!
+This repo contains C++ examples to use the following object trackers:
+- Multi-Scale KCF 
+- Multi-Scale MOSSE
 
+Also, there is another tracker that I implemented for ARM CPUs. It extracts FAST keypoints from the detected object, tracks them by KLT algorithm, and maps the bounding box to a new box using the estimated similarity transformation between the points. 
+
+In addition to being multi-scale, all the trackers would report failures when the object is no longer in the scene or the tracking quality is below a threshold. This makes them very applicable to real-world projects. Feel free to use and send me PRs if you found better trackers :)
+
+# How to Build?
 Go inside each folder and then:
 ```
 mkdir build
