@@ -33,7 +33,17 @@ void FastKltTracker::init(const cv::Mat& frame, const cv::Rect& object)
 
     cv::Rect shrinkedObj = shrinkRect(object);
     prevKeypoints = detectGridFASTpoints(prevGrayFrame, shrinkedObj);
-    prevRect = cv::Rect2f(object.x, object.y, object.width, object.height);
+
+    float x = (float)object.x;
+    float y = (float)object.y;
+    float w = (float)object.width;
+    float h = (float)object.height;
+
+    prevCorners.resize(4);
+    prevCorners[0] = cv::Point2f(x,y);
+    prevCorners[1] = cv::Point2f(x+w,y);
+    prevCorners[2] = cv::Point2f(x+w,y+h);
+    prevCorners[3] = cv::Point2f(x,y+h);
 }
 
 
@@ -62,29 +72,15 @@ bool FastKltTracker::update(const cv::Mat& frame, cv::Rect2f &output)
 
     if (!geometry.empty())
     {
-        float prevX = prevRect.x;
-        float prevY = prevRect.y;
-        float prevW = prevRect.width;
-        float prevH = prevRect.height;
+        std::vector<cv::Point2f> currCorners;
+        cv::transform(prevCorners, currCorners, geometry);
 
-        std::vector<cv::Point2f> prevPoints = {{prevX, prevY}, {prevX+prevW, prevY+prevH}};
+        output = boundingRect2f(currCorners); //Update rectangle
 
-        std::vector<cv::Point2f> currPoints;
-        cv::transform(prevPoints, currPoints, geometry);
-
-        float currX = currPoints[0].x;
-        float currY = currPoints[0].y;
-        float currW = currPoints[1].x-currPoints[0].x;
-        float currH = currPoints[1].y-currPoints[0].y;
-
-        if (currW < 0 || currH < 0) //wrong estimation
+        if (output.width < 0 || output.height < 0) //wrong estimation
             return false;
 
-        output = cv::Rect2f(currX, currY, currW, currH);
-
-        cv::Rect2f trackedObj = cv::Rect2f(currX, currY, currW, currH); //Update rectangle
-
-        cv::Rect shrinkedObj = shrinkRect(trackedObj);
+        cv::Rect shrinkedObj = shrinkRect(output);
 
         //Handle the box partially outside the frame
         cv::Rect2f intersection = findIntersection(shrinkedObj);
@@ -96,7 +92,7 @@ bool FastKltTracker::update(const cv::Mat& frame, cv::Rect2f &output)
         prevKeypoints = detectGridFASTpoints(currFrameGray, shrinkedObj); //Update keypoints
 
         currFrameGray.copyTo(prevGrayFrame);
-        prevRect = trackedObj;
+        prevCorners = currCorners;
 
         return true;
     }
@@ -125,6 +121,26 @@ cv::Rect FastKltTracker::shrinkRect(const cv::Rect& input)
     output += offset;
 
     return output;
+}
+
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+cv::Rect2f FastKltTracker::boundingRect2f(const std::vector<cv::Point2f>& points)
+{
+    float x[4] = {points[0].x, points[1].x, points[2].x, points[3].x};
+    float y[4] = {points[0].y, points[1].y, points[2].y, points[3].y};
+
+    float min_x = *std::min_element(x, x+4);
+    float max_x = *std::max_element(x, x+4);
+
+    float min_y = *std::min_element(y, y+4);
+    float max_y = *std::max_element(y, y+4);
+
+    float width = max_x - min_x;
+    float height = max_y - min_y;
+
+    return cv::Rect2f(min_x, min_y, width, height);
 }
 
 
