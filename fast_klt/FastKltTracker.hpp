@@ -13,6 +13,7 @@ public:
 private:
     cv::Rect2f findIntersection(const cv::Rect2f& input);
     cv::Rect shrinkRect(const cv::Rect& input);
+    cv::Rect2f boundingRect2f(const std::vector<cv::Point2f>& points);
     void keepStrongest( int N, std::vector<cv::KeyPoint>& keypoints);
     std::vector<cv::Point2f> detectGridFASTpoints(cv::Mat image, cv::Rect object);
     float track(const cv::Mat &img_1, const cv::Mat &img_2, std::vector<cv::Point2f>& points1, std::vector<cv::Point2f>& points2);
@@ -22,7 +23,7 @@ private:
     cv::Size grid;
     cv::Size KltWinSize;
     float RansacThresh;
-    cv::Rect2f prevRect;
+    std::vector<cv::Point2f> prevCorners;
     std::vector<cv::Point2f> prevKeypoints;
     cv::Mat prevGrayFrame;
     float shrinkRatio;
