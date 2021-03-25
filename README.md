@@ -7,7 +7,7 @@ Also, there is another tracker that I implemented for ARM CPUs. It extracts FAST
 
 In addition to being multi-scale, all the trackers would report failures when the object is no longer in the scene or the tracking quality is below a threshold. This makes them very applicable to real-world projects. Feel free to use and send me PRs if you found better trackers :)
 
-# How to Build?
+## How to Build?
 Go inside each folder and then:
 ```
 mkdir build
@@ -17,7 +17,7 @@ make
 ```
 Run the generated executable and enjoy! It detects face in the video using a pre-trained SSD model and then tries to track it in the subsequent frames. 
 
-# Note
+## Note
 If you don't have Dlib on your computer, install it via:
 ```
 sudo apt-get install build-essential cmake pkg-config 
@@ -33,5 +33,5 @@ sudo make install
 sudo ldconfig
 ```
 
-# Appendix
+## Appendix
 For more details read my post [here](http://imrid.net/?p=4441).
