@@ -18,7 +18,7 @@ make
 Run the generated executable and enjoy! It detects face in the video using a pre-trained SSD model and then tries to track it in the subsequent frames. 
 
 ## Note
-If you don't have Dlib on your computer, install it via:
+1. If you don't have Dlib on your computer, install it via:
 ```
 sudo apt-get install build-essential cmake pkg-config 
 sudo apt-get install libx11-dev libatlas-base-dev 
@@ -32,6 +32,6 @@ cmake .. cmake --build . --config Release
 sudo make install 
 sudo ldconfig
 ```
-
+2. A python implementation of fast-klt tracker is availbale [here](https://github.com/gone-still/fastKLT-tracker). 
 ## Appendix
 For more details read my post [here](http://imrid.net/?p=4441).
